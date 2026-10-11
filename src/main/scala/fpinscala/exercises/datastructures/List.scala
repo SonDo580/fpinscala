@@ -30,6 +30,9 @@ object List: // `List` companion object. Contains functions for creating and wor
     case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
     case Cons(h, t) => h + sum(t)
     case _ => 101
+  // Exercise 1
+  // -> match 3rd case
+  // -> result = 1 + 2 = 3
 
   def append[A](a1: List[A], a2: List[A]): List[A] =
     a1 match
@@ -47,7 +50,10 @@ object List: // `List` companion object. Contains functions for creating and wor
   def productViaFoldRight(ns: List[Double]): Double =
     foldRight(ns, 1.0, _ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
-  def tail[A](l: List[A]): List[A] = ???
+  // Exercise 2
+  def tail[A](l: List[A]): List[A] = l match
+    case Nil => sys.error("tail of empty list")
+    case Cons(x, xs) => xs
 
   def setHead[A](l: List[A], h: A): List[A] = ???
 
