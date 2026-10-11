@@ -76,7 +76,12 @@ object List: // `List` companion object. Contains functions for creating and wor
         if f(x) then dropWhile(t, f)
         else l
 
-  def init[A](l: List[A]): List[A] = ???
+  // Exercise 6: returns a list that exclude last element 
+  def init[A](l: List[A]): List[A] =
+    l match
+      case Nil => sys.error("init of empty list")
+      case Cons(_, Nil) => Nil
+      case Cons(x, xs) => Cons(x, init(xs))
 
   def length[A](l: List[A]): Int = ???
 
