@@ -44,6 +44,16 @@ object List: // `List` companion object. Contains functions for creating and wor
       case Nil => acc
       case Cons(x, xs) => f(x, foldRight(xs, acc, f))
 
+  // Exercise 8: Final result is the original list
+  /*
+  foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_))
+  foldRight(Cons(1, Cons(2, Cons(3, Nil))), Nil:List[Int])(Cons(_,_))
+  Cons(1, foldRight(Cons(2, Cons(3, Nil)), Nil:List[Int])(Cons(_,_)))
+  Cons(1, Cons(2, foldRight(Cons(3, Nil), Nil:List[Int])(Cons(_,_))))
+  Cons(1, Cons(2, Cons(3, foldRight(Nil, Nil:List[Int])(Cons(_,_)))))
+  Cons(1, Cons(2, Cons(3, Nil)))
+  */
+
   def sumViaFoldRight(ns: List[Int]): Int =
     foldRight(ns, 0, (x,y) => x + y)
 
@@ -87,7 +97,15 @@ object List: // `List` companion object. Contains functions for creating and wor
   def length[A](l: List[A]): Int =
     foldRight(l, 0, (_, acc) => acc + 1)
 
-  def foldLeft[A,B](l: List[A], acc: B, f: (B, A) => B): B = ???
+  // Exercise 10
+  def foldLeft[A,B](l: List[A], acc: B, f: (B, A) => B): B = {
+    def go(curr: B, rest: List[A]): B =
+      rest match
+        case Nil => curr
+        case Cons(x, xs) => go(f(curr, x), xs)
+
+    go(acc, l)
+  }
 
   def sumViaFoldLeft(ns: List[Int]): Int = ???
 
