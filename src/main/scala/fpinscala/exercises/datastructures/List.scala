@@ -50,14 +50,18 @@ object List: // `List` companion object. Contains functions for creating and wor
   def productViaFoldRight(ns: List[Double]): Double =
     foldRight(ns, 1.0, _ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
-  // Exercise 2: "remove" 1st element of l
+  // Exercise 2: "remove" 1st element
   def tail[A](l: List[A]): List[A] = l match
     case Nil => sys.error("tail of empty list")
     case Cons(_, xs) => xs
 
-  def setHead[A](l: List[A], h: A): List[A] = ???
+  // Exercise 5: "replace" 1st element with a different value
+  def setHead[A](l: List[A], h: A): List[A] =
+    l match
+      case Nil => sys.error("setHead of empty list")
+      case Cons(_, xs) => Cons(h, xs)
 
-  // Exercise 3: "remove" 1st n elements of l
+  // Exercise 3: "remove" 1st n elements
   def drop[A](l: List[A], n: Int): List[A] =
     if n <= 0 then l // don't throw exception
     else l match
