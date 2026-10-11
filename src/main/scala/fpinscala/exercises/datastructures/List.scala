@@ -107,12 +107,17 @@ object List: // `List` companion object. Contains functions for creating and wor
     go(acc, l)
   }
 
-  def sumViaFoldLeft(ns: List[Int]): Int = ???
+  // Exercise 11: sum / product / length via foldLeft
+ 
+  def sumViaFoldLeft(ns: List[Int]): Int =
+    foldLeft(ns, 0, _ + _)
 
-  def productViaFoldLeft(ns: List[Double]): Double = ???
+  def productViaFoldLeft(ns: List[Double]): Double =
+    foldLeft(ns, 1, _ * _)
 
-  def lengthViaFoldLeft[A](l: List[A]): Int = ???
-
+  def lengthViaFoldLeft[A](l: List[A]): Int =
+    foldLeft(l, 0, (acc, _) => acc + 1)
+    
   def reverse[A](l: List[A]): List[A] = ???
 
   def appendViaFoldRight[A](l: List[A], r: List[A]): List[A] = ???
