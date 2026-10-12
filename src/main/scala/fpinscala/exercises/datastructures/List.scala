@@ -170,8 +170,12 @@ object List: // `List` companion object. Contains functions for creating and wor
         if f(x) then Cons(x, filter(xs, f))
         else filter(xs, f)
     
-
-  def flatMap[A,B](as: List[A], f: A => List[B]): List[B] = ???
+  // Exercise 20
+  // - Example: flatMap([1, 2, 3], i => [i, i]) = [1, 1, 2, 2, 3, 3]
+  def flatMap[A,B](as: List[A], f: A => List[B]): List[B] =
+    as match
+      case Nil => Nil
+      case Cons(x, xs) => append(f(x), flatMap(xs, f))
 
   def filterViaFlatMap[A](as: List[A], f: A => Boolean): List[A] = ???
 
