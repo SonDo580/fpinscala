@@ -194,4 +194,15 @@ object List: // `List` companion object. Contains functions for creating and wor
 
   // def zipWith - TODO determine signature
 
-  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = ???
+  // Exercise 24: Check if 'sub' is a subsequence of 'sup'
+  // - Example: [1, 2, 3] has subsequences [1, 2, 3], [1, 2], [2, 3], [1], [2], [3], [].
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = {
+    def go(restSup: List[A], restSub: List[A]): Boolean =
+      (restSup, restSub) match
+        case (_, Nil) => true
+        case (Nil, _) => false
+        case (Cons(h1, t1), Cons(h2, t2)) => 
+          (h1 == h2 && go(t1, t2)) || go(t1, sub)
+      
+    go(sup, sub)
+  }
