@@ -118,7 +118,17 @@ object List: // `List` companion object. Contains functions for creating and wor
   def lengthViaFoldLeft[A](l: List[A]): Int =
     foldLeft(l, 0, (acc, _) => acc + 1)
     
-  def reverse[A](l: List[A]): List[A] = ???
+  // Exercise 12 - approach 1
+  /* 
+  def reverse[A](l: List[A]): List[A] =
+    l match
+      case Nil => Nil
+      case Cons(x, xs) => append(reverse(xs), Cons(x, Nil))
+  */
+
+  // Exercise 12 - approach 2 - with foldLeft
+  def reverse[A](l: List[A]): List[A] =
+    foldLeft(l, Nil:List[A], (acc, x) => Cons(x, acc))
 
   def appendViaFoldRight[A](l: List[A], r: List[A]): List[A] = ???
 
