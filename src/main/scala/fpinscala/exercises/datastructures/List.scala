@@ -150,8 +150,13 @@ object List: // `List` companion object. Contains functions for creating and wor
       case Nil => Nil
       case Cons(x, xs) => Cons(x + 1, incrementEach(xs))
 
-  def doubleToString(l: List[Double]): List[String] = ???
+  // Exercise 17:
+  def doubleToString(l: List[Double]): List[String] =
+    l match
+      case Nil => Nil
+      case Cons(x, xs) => Cons(x.toString(), doubleToString(xs))
 
+  // Exercise 18:
   def map[A,B](l: List[A], f: A => B): List[B] = ???
 
   def filter[A](as: List[A], f: A => Boolean): List[A] = ???
