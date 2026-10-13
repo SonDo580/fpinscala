@@ -7,15 +7,47 @@ enum Option[+A]:
   case Some(get: A)
   case None
 
-  def map[B](f: A => B): Option[B] = ???
+  // Exercise 1: Implement following functions
 
-  def getOrElse[B>:A](default: => B): B = ???
+  def map[B](f: A => B): Option[B] =
+    this match
+      case None => None
+      case Some(get) => Some(f(get))
+        
+  def getOrElse[B>:A](default: => B): B = 
+    this match
+      case None => default
+      case Some(get) => get    
 
-  def flatMap[B](f: A => Option[B]): Option[B] = ???
+  // with pattern matching
+  // def flatMap[B](f: A => Option[B]): Option[B] =
+  //   this match
+  //     case None => None
+  //     case Some(get) => f(get)
 
-  def orElse[B>:A](ob: => Option[B]): Option[B] = ???
+  // without pattern matching
+  def flatMap[B](f: A => Option[B]): Option[B] =
+    map(f).getOrElse(None)
 
-  def filter(f: A => Boolean): Option[A] = ???
+  // with pattern matching
+  // def orElse[B>:A](ob: => Option[B]): Option[B] =
+  //   this match
+  //     case None => ob
+  //     case Some(_) => this
+
+  // without pattern matching
+  def orElse[B>:A](ob: => Option[B]): Option[B] =
+    map(get => Some(get)).getOrElse(ob)
+
+  // with pattern matching
+  // def filter(f: A => Boolean): Option[A] =
+  //   this match
+  //     case None => None
+  //     case Some(get) => if f(get) then this else None
+
+  // without pattern matching
+  def filter(f: A => Boolean): Option[A] =
+    flatMap(get => if f(get) then Some(get) else None)
 
 object Option:
 
