@@ -20,13 +20,22 @@ enum Tree[+A]:
     case Leaf(v) => Leaf(f(v))
     case Branch(l, r) => Branch(l.map(f), r.map(f))
 
-  def fold[B](f: A => B, g: (B,B) => B): B = ???
+  // Exercise 29: fold + size/depth/map/maximum via fold
+
+  // - f: apply to leaf nodes
+  // - g: combine results of 2 subtrees 
+  def fold[B](f: A => B, g: (B,B) => B): B = this.match
+    case Leaf(v) => f(v)
+    case Branch(l, r) => g(l.fold(f, g), r.fold(f, g))
   
-  def sizeViaFold: Int = ???
+  def sizeViaFold: Int =
+    this.fold(_ => 1, 1 + _ + _)
   
-  def depthViaFold: Int = ???
+  def depthViaFold: Int =
+    this.fold(_ => 0, (ld, rd) => 1 + (ld max rd))
   
-  def mapViaFold[B](f: A => B): Tree[B] = ???
+  def mapViaFold[B](f: A => B): Tree[B] =
+    this.fold(v => Leaf(f(v)), (l, r) => Branch(l, r))
 
 object Tree:
 
@@ -47,4 +56,7 @@ object Tree:
     go(t)
   }
 
-  extension (t: Tree[Int]) def maximumViaFold: Int = ???
+  // Exercise 29: fold + size/depth/map/maximum via fold
+  extension (t: Tree[Int]) def maximumViaFold: Int =
+    t.fold(v => v, (lmax, rmax) => lmax max rmax)
+
