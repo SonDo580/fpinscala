@@ -68,7 +68,27 @@ object Option:
     if xs.isEmpty then None
     else Some(xs.sum / xs.length)
 
-  def variance(xs: Seq[Double]): Option[Double] = ???
+  // Exercise 2: variance = sum(math.pow(x - m, 2) for x in xs) / N
+
+  // approach 1:
+  // def variance(xs: Seq[Double]): Option[Double] = {
+  //   val m = mean(xs)
+  //   m match
+  //     case None => None
+  //     case Some(get) => Some(xs.map(x => math.pow(x - get, 2)).sum / xs.length)
+  // }
+
+  // approach 2: mean + flatMap 
+  // def variance(xs: Seq[Double]): Option[Double] = {
+  //   val m = mean(xs)
+  //   m.flatMap(get => Some(xs.map(x => math.pow(x - get, 2)).sum / xs.length))
+  // }
+
+  // approach 3: mean + map
+  def variance(xs: Seq[Double]): Option[Double] = {
+    val m = mean(xs)
+    m.map(get => xs.map(x => math.pow(x - get, 2)).sum / xs.length)
+  }
 
   def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = ???
 
